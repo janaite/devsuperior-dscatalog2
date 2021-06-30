@@ -41,7 +41,7 @@ public class User implements UserDetails, Serializable {
 
 	@OneToMany(mappedBy = "user")
 	private List<Notification> notifications = new ArrayList<>();
-	
+
 	public User() {
 	}
 
@@ -88,7 +88,7 @@ public class User implements UserDetails, Serializable {
 	public Set<Role> getRoles() {
 		return roles;
 	}
-	
+
 	public List<Notification> getNotifications() {
 		return notifications;
 	}
@@ -146,5 +146,9 @@ public class User implements UserDetails, Serializable {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	public boolean hasRole(String roleName) {
+		return roles.stream().anyMatch(role -> role.getAuthority().equals(roleName));
 	}
 }
